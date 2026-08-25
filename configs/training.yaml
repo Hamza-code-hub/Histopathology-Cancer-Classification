@@ -1,0 +1,19 @@
+project:
+  name: lung-colon-cancer-classification
+
+dataset:
+  image_size:
+    - 224
+    - 224
+  batch_size: 32
+  validation_split: 0.20
+  random_seed: 42
+
+training:
+  epochs: 10
+  learning_rate: 0.001
+  early_stopping_patience: 4
+
+models:
+  - resnet50
+  - efficientnetb3

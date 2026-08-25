@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *.egg-info/
+build/
+dist/
 
 # Virtual environments
 venv/
@@ -15,19 +17,24 @@ env/
 .vscode/
 .idea/
 
-# OS
+# Operating systems
 .DS_Store
 Thumbs.db
 
-# Models
-models/*.h5
-models/*.keras
-models/*.pt
-models/*.pth
+# Environment variables
+.env
+.env.*
 
 # Dataset
 dataset/
 data/
 
-# Environment variables
-.env
+# Large model files
+models/*.h5
+models/*.keras
+models/*.pt
+models/*.pth
+models/*.onnx
+
+# TensorBoard
+logs/

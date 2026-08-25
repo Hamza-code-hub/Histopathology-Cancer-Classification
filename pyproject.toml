@@ -1,0 +1,9 @@
+[project]
+name = "histopathology-cancer-classification"
+version = "1.0.0"
+description = "Lung and colon histopathology classification using ResNet50 and EfficientNetB3"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

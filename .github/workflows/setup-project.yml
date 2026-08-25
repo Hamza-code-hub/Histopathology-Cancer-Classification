@@ -1,0 +1,145 @@
+name: Build Professional Project Structure
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create project structure
+        run: |
+          # Create directories
+          mkdir -p notebooks
+          mkdir -p src
+          mkdir -p assets
+          mkdir -p models
+          mkdir -p tests
+
+          # Move existing notebook
+          if [ -f "lung-cancer-effb3-and-resnet50.ipynb" ]; then
+            mv lung-cancer-effb3-and-resnet50.ipynb notebooks/training_experiments.ipynb
+          fi
+
+          # Python package
+          touch src/__init__.py
+
+          cat > src/data_loader.py <<'EOF'
+          """
+          Dataset loading utilities for lung and colon
+          histopathology image classification.
+          """
+          EOF
+
+          cat > src/preprocessing.py <<'EOF'
+          """
+          Image preprocessing utilities.
+          """
+          EOF
+
+          cat > src/models.py <<'EOF'
+          """
+          ResNet50 and EfficientNet model definitions.
+          """
+          EOF
+
+          cat > src/train.py <<'EOF'
+          """
+          Model training pipeline.
+          """
+          EOF
+
+          cat > src/evaluate.py <<'EOF'
+          """
+          Model evaluation utilities.
+          """
+          EOF
+
+          cat > src/predict.py <<'EOF'
+          """
+          Histopathology image inference utilities.
+          """
+          EOF
+
+          # Tests
+          cat > tests/test_inference.py <<'EOF'
+          """
+          Tests for the inference pipeline.
+          """
+
+          def test_placeholder():
+              assert True
+          EOF
+
+          # Requirements
+          cat > requirements.txt <<'EOF'
+          tensorflow
+          numpy
+          pandas
+          matplotlib
+          scikit-learn
+          jupyter
+          pillow
+          EOF
+
+          # Git ignore
+          cat > .gitignore <<'EOF'
+          # Python
+          __pycache__/
+          *.py[cod]
+          *.egg-info/
+
+          # Virtual environments
+          venv/
+          .venv/
+          env/
+
+          # Jupyter
+          .ipynb_checkpoints/
+
+          # IDE
+          .vscode/
+          .idea/
+
+          # OS
+          .DS_Store
+          Thumbs.db
+
+          # Models
+          models/*.h5
+          models/*.keras
+          models/*.pt
+          models/*.pth
+
+          # Dataset
+          dataset/
+          data/
+
+          # Environment variables
+          .env
+          EOF
+
+          # Keep directories tracked by Git
+          touch assets/.gitkeep
+          touch models/.gitkeep
+
+      - name: Commit project structure
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "No changes required."
+          else
+            git commit -m "chore: organize professional project structure"
+            git push
+          fi

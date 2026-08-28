@@ -4,7 +4,7 @@
 
 ### Histopathology Image Classification with ResNet50 & EfficientNet
 
-<p>
+<p> 
   An end-to-end deep learning project for classifying
   <strong>lung and colon histopathology images</strong>
   across five tissue categories using modern convolutional neural networks
